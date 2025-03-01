@@ -1,0 +1,16 @@
+# this file will act as parent of all other files
+# all other config files in this directory will inherit from this
+
+# all the microservices will be registered with eureka
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+# config server will not override default system properties of microservices
+spring:
+  cloud:
+    config:
+      override-system-properties: false
