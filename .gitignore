@@ -1,0 +1,77 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Gradle and Maven build files
+.gradle/
+target/
+build/
+
+# Eclipse files
+.project
+.classpath
+.settings/
+
+# Spring Boot specific
+spring-boot-devtools/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Java and Maven output directories
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Dependency directories (for Maven and Gradle)
+/.m2/
+/.gradle/
+/build/
+/target/
+
+# .env files or config files (if you use dotenv or custom config)
+.env
+.env.local
+.env.*.local
+
+# Spring Boot generated configuration
+/application.properties
+/application.yml
+
+# IntelliJ Idea caches
+.idea/caches/
+.idea/libraries/
+.idea/modules/
+.idea/workspace.xml
+
+# Node modules (if you use Node.js for front-end)
+node_modules/
+
+# JetBrains Rider and other IDE specific files
+.idea/.idea_modules/
+
+# Custom IDE files for other IDEs
+.vscode/
+
+# Local IntelliJ run configurations
+.idea/runConfigurations/
+
+# Ignore JARs created by Maven or Gradle
+*.jar
+
+# Ignore logs (log files)
+*.log
+
+# Ignore Gradle wrapper JAR (for Gradle projects)
+gradle-wrapper.jar
+
+# Ignore local configuration files and temporary files
+*.swp
+*.swo
+
