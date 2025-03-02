@@ -2,14 +2,15 @@ package edu.icet.ecom.order.service;
 
 import edu.icet.ecom.order.client.CustomerClient;
 import edu.icet.ecom.order.client.ProductClient;
-import edu.icet.ecom.order.dto.OrderLineRequest;
-import edu.icet.ecom.order.dto.OrderRequest;
-import edu.icet.ecom.order.dto.PurchaseRequest;
+import edu.icet.ecom.order.dto.*;
+import edu.icet.ecom.order.producer.kafka.OrderProducer;
 import edu.icet.ecom.order.repository.OrderRepository;
 import edu.icet.ecom.order.util.exception.custom.BusinessException;
-import jakarta.validation.Valid;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
+    private final OrderProducer orderProducer;
 
     public Integer createOrder(OrderRequest orderRequest) {
         // check if customer exists -- connect to customer microservice
@@ -28,7 +30,7 @@ public class OrderService {
 
         // purchase the product -- connect to product microservice
         // here we are calling the product microservice using RestTemplate
-        productClient.purchaseProducts(orderRequest.products());
+        var purchasedProducts = productClient.purchaseProducts(orderRequest.products());
 
         // create the order and save
         var order = orderRepository.save(orderMapper.toOrder(orderRequest));
@@ -49,7 +51,32 @@ public class OrderService {
 
 
         // send email -- kafka
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        orderRequest.reference(),
+                        orderRequest.amount(),
+                        orderRequest.paymentMethod(),
+                        customer,
+                        purchasedProducts
+                )
+        );
 
-        return null;
+        return order.getId();
+    }
+
+    public List<OrderResponse> findAllOrders() {
+        return orderRepository.findAll()
+                .stream()
+                .map(orderMapper::fromOrder)
+                .toList();
+    }
+
+    public OrderResponse findOrderById(Integer id) {
+        return orderRepository.
+                findById(id).
+                map(orderMapper::fromOrder).
+                orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Order with id %d not found", id)
+                ));
     }
 }
