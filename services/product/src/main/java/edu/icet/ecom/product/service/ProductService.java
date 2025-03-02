@@ -5,7 +5,7 @@ import edu.icet.ecom.product.dto.ProductPurchaseResponse;
 import edu.icet.ecom.product.dto.ProductRequest;
 import edu.icet.ecom.product.dto.ProductResponse;
 import edu.icet.ecom.product.repository.ProductRepository;
-import edu.icet.ecom.product.util.customException.ProductPurchaseException;
+import edu.icet.ecom.product.util.exception.custom.ProductPurchaseException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
