@@ -1,6 +1,7 @@
 package edu.icet.ecom.order.service;
 
 import edu.icet.ecom.order.dto.OrderLineRequest;
+import edu.icet.ecom.order.dto.OrderLineResponse;
 import edu.icet.ecom.order.entity.Order;
 import edu.icet.ecom.order.entity.OrderLine;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,12 @@ public class OrderLineMapper {
                 )
                 .productId(orderLineRequest.productId())
                 .build();
+    }
+
+    public OrderLineResponse toOrderLineResponse(OrderLine orderLine) {
+        return new OrderLineResponse(
+                orderLine.getId(),
+                orderLine.getQuantity()
+        );
     }
 }
