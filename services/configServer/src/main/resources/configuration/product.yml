@@ -8,7 +8,7 @@ spring:
     hibernate:
       #     not make any changes to the database let flyway do it
       ddl-auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
 
   flyway:
