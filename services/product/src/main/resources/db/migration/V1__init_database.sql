@@ -14,5 +14,5 @@ create table if not exists product (
     constraint fk_category foreign key (category_id) references category(id)
 );
 
-create sequence if not exists category_sequence start with 1 increment by 50;
-create sequence if not exists product_sequence start with 1 increment by 50;
+create sequence if not exists category_seq start with 1 increment by 50;
+create sequence if not exists product_seq start with 1 increment by 50;
