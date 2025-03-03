@@ -1,0 +1,39 @@
+spring:
+  data:
+    mongodb:
+      username: root
+      password: password
+      host: localhost
+      port: 27017
+      database: notification
+      authentication-database: admin
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: payment-group, order-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: edu.icet.ecom
+        spring.json.type.mapping: orderConfirmation:edu.icet.ecom.order.dto.OrderConfirmation,paymentNotificationRequest:edu.icet.ecom.payment.dto.PaymentNotificationRequest
+
+  mail:
+    host: localhost
+    port: 1025
+    username: root
+    password: password
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 10000
+        timeout: 3000
+        write-timeout: 5000
+
+server:
+  port: 8040

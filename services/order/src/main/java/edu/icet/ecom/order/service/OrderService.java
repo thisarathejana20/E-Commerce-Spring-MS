@@ -1,6 +1,7 @@
 package edu.icet.ecom.order.service;
 
 import edu.icet.ecom.order.client.CustomerClient;
+import edu.icet.ecom.order.client.PaymentClient;
 import edu.icet.ecom.order.client.ProductClient;
 import edu.icet.ecom.order.dto.*;
 import edu.icet.ecom.order.producer.kafka.OrderProducer;
@@ -21,6 +22,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(OrderRequest orderRequest) {
         // check if customer exists -- connect to customer microservice
@@ -48,6 +50,14 @@ public class OrderService {
         }
 
         // payment process
+        var paymentRequest = new PaymentRequest(
+            orderRequest.amount(),
+            orderRequest.paymentMethod(),
+            order.getId(),
+            orderRequest.reference(),
+            customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
 
         // send email -- kafka

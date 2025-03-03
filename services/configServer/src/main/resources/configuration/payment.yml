@@ -18,4 +18,4 @@ spring:
         spring.json.type.mapping: paymentNotificationRequest:edu.icet.ecom.payment.dto.PaymentNotificationRequest
 
 server:
-  port: 8030
+  port: 8060
