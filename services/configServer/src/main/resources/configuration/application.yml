@@ -14,3 +14,10 @@ spring:
   cloud:
     config:
       override-system-properties: false
+
+management:
+  #  endpoint -- you have to provide it if you start the docker container of zipkin other than 9411 port
+  #  otherwise the default port 9411 will start
+  tracing:
+    sampling:
+      probability: 1.0

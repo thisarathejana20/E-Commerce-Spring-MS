@@ -37,11 +37,8 @@ services:
     volumes:
       - mongo:/data
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 12345
-    networks:
-      - microservices-net
-    restart: unless-stopped
+      MONGO_INITDB_ROOT_USERNAME: ttb
+      MONGO_INITDB_ROOT_PASSWORD: ttb
 
   mongo-express:
     container_name: ms_mongo_express
@@ -51,9 +48,9 @@ services:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: 12345
-      ME_CONFIG_MONGODB_URL: mongodb://root:12345@mongodb:27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ttb
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ttb
+      ME_CONFIG_MONGODB_URL: mongodb://ttb:ttb@mongodb:27017
     depends_on:
       - mongodb
     networks:
@@ -94,6 +91,14 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+
+  zipkin:
+    container_name: ms_zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - microservices-net
 
 networks:
   microservices-net:

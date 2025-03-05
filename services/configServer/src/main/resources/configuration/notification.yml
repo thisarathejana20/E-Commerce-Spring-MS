@@ -17,7 +17,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: edu.icet.ecom
-        spring.json.type.mapping: orderConfirmation:edu.icet.ecom.order.dto.OrderConfirmation,paymentNotificationRequest:edu.icet.ecom.payment.dto.PaymentNotificationRequest
+        spring.json.type.mapping: orderConfirmation:edu.icet.ecom.notification.kafka.order.OrderConfirmation,paymentConfirmation:edu.icet.ecom.notification.kafka.payment.PaymentConfirmation
 
   mail:
     host: localhost
